@@ -21,7 +21,7 @@ spec:
       containers:
         - name: subscriber-service
 
-          image: subscriber-service:v1
+          image: subscriber-service:v2
           imagePullPolicy: Never
 
           ports:
