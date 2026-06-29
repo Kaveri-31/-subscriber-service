@@ -3,15 +3,15 @@ kind: Service
 
 metadata:
   name: subscriber-service
-  namespace: {{ .Values.namespace }}
+  namespace: telecom
 
 spec:
   selector:
     app: subscriber-service
 
-  type: {{ .Values.subscriber.service.type }}
+  type: NodePort
 
   ports:
-    - port: {{ .Values.subscriber.service.port }}
-      targetPort: {{ .Values.subscriber.service.port }}
-      nodePort: {{ .Values.subscriber.service.nodePort }}
+    - port: 7070
+      targetPort: 7070
+      nodePort: 31727

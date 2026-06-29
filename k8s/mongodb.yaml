@@ -12,7 +12,7 @@ spec:
 
   resources:
     requests:
-      storage: {{ .Values.mongodb.storage }}
+      storage: 2Gi
 
 ---
 apiVersion: apps/v1
@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
         - name: mongodb
-          image: {{ .Values.mongodb.image }}
+          image: mongo:8
           imagePullPolicy: IfNotPresent
           
           resources:
@@ -50,7 +50,7 @@ spec:
               memory: 1Gi
 
           ports:
-            - containerPort: {{ .Values.mongodb.port }}
+            - containerPort: 27017
 
           volumeMounts:
             - name: mongodb-storage

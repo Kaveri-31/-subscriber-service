@@ -21,7 +21,7 @@ spec:
       containers:
       - name: kafka
 
-        image: {{ .Values.kafka.image }}
+        image: apache/kafka:latest
         
         resources:
           requests:
@@ -33,7 +33,7 @@ spec:
             memory: 2Gi
         
         ports:
-        - containerPort: {{ .Values.kafka.port }}
+        - containerPort: 9092
 
         env:
 

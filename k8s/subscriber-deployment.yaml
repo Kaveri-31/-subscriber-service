@@ -3,10 +3,10 @@ kind: Deployment
 
 metadata:
   name: subscriber-service
-  namespace: {{ .Values.namespace }}
+  namespace: telecom
 
 spec:
-  replicas: {{ .Values.subscriber.replicaCount }}
+  replicas: 1
 
   selector:
     matchLabels:
@@ -21,8 +21,8 @@ spec:
       containers:
         - name: subscriber-service
 
-          image: "{{ .Values.subscriber.image.repository }}:{{ .Values.subscriber.image.tag }}"
-          imagePullPolicy: {{ .Values.subscriber.image.pullPolicy }}
+          image: subscriber-service:v1
+          imagePullPolicy: Never
 
           ports:
             - containerPort: 7070
