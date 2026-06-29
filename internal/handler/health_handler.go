@@ -40,7 +40,7 @@ func Ready(c *gin.Context) {
 			"mongodb": "UP",
 			"kafka":   "UP",
 			"service": "Subscriber Service",
-			"version": "v1.0.0",
+			"version": "v2.0.0",
 		},
 	)
 }
