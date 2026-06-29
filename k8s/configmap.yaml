@@ -6,17 +6,16 @@ metadata:
   namespace: telecom
 
 data:
+  APP_NAME: "subscriber-service"
 
-  APP_NAME: {{ .Values.config.APP_NAME | quote }}
+  SERVER_PORT: "7070"
 
-  SERVER_PORT: {{ .Values.config.SERVER_PORT | quote }}
+  MONGO_URI: "mongodb://mongodb:27017"
 
-  MONGO_URI: {{ .Values.config.MONGO_URI | quote }}
+  MONGO_DATABASE: "telecom"
 
-  MONGO_DATABASE: {{ .Values.config.MONGO_DATABASE | quote }}
+  MONGO_COLLECTION: "subscribers"
 
-  MONGO_COLLECTION: {{ .Values.config.MONGO_COLLECTION | quote }}
+  KAFKA_BROKER: "kafka:9092"
 
-  KAFKA_BROKER: {{ .Values.config.KAFKA_BROKER | quote }}
-
-  KAFKA_TOPIC: {{ .Values.config.KAFKA_TOPIC | quote }}
+  KAFKA_TOPIC: "subscriber-events"
