@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: subscriber-ingress
+  namespace: telecom
+
+spec:
+
+  ingressClassName: nginx
+
+  rules:
+
+  - host: subscriber.local
+
+    http:
+
+      paths:
+
+      - path: /
+
+        pathType: Prefix
+
+        backend:
+
+          service:
+
+            name: subscriber-service
+
+            port:
+
+              number: 7070

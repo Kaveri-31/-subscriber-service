@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: subscriber-service
+  namespace: {{ .Values.namespace }}
+
+spec:
+  replicas: {{ .Values.subscriber.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: subscriber-service
+
+  template:
+    metadata:
+      labels:
+        app: subscriber-service
+
+    spec:
+      containers:
+        - name: subscriber-service
+
+          image: "{{ .Values.subscriber.image.repository }}:{{ .Values.subscriber.image.tag }}"
+          imagePullPolicy: {{ .Values.subscriber.image.pullPolicy }}
+
+          ports:
+            - containerPort: 7070
+          
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+           
+            limits:
+              cpu: 100m
+              memory: 512Mi
+              
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: subscriber-config
+                  key: MONGO_URI
+
+            - name: MONGO_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: subscriber-config
+                  key: MONGO_DATABASE
+
+            - name: MONGO_COLLECTION
+              valueFrom:
+                configMapKeyRef:
+                  name: subscriber-config
+                  key: MONGO_COLLECTION
+
+            - name: KAFKA_BROKER
+              valueFrom:
+                configMapKeyRef:
+                  name: subscriber-config
+                  key: KAFKA_BROKER
+
+            - name: KAFKA_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: subscriber-config
+                  key: KAFKA_TOPIC
+          
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 7070
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 12
+
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 7070
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /live
+              port: 7070
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3

@@ -1,0 +1,171 @@
+basePath: /
+definitions:
+  model.Subscriber:
+    properties:
+      id:
+        type: string
+      imsi:
+        type: string
+      msisdn:
+        type: string
+      plan:
+        type: string
+      status:
+        type: string
+    type: object
+host: localhost:7070
+info:
+  contact:
+    email: kaveri@example.com
+    name: Kaveri
+  description: Subscriber Management REST API using Gin, MongoDB, Kafka and Prometheus.
+  license:
+    name: MIT
+  termsOfService: http://swagger.io/terms/
+  title: Subscriber Service API
+  version: "1.0"
+paths:
+  /subscribers:
+    get:
+      description: Returns all subscribers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Subscriber'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all subscribers
+      tags:
+      - Subscribers
+    post:
+      consumes:
+      - application/json
+      description: Creates a new subscriber
+      parameters:
+      - description: Subscriber
+        in: body
+        name: subscriber
+        required: true
+        schema:
+          $ref: '#/definitions/model.Subscriber'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Subscriber'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create subscriber
+      tags:
+      - Subscribers
+  /subscribers/{id}:
+    delete:
+      description: Deletes a subscriber
+      parameters:
+      - description: Subscriber ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete subscriber
+      tags:
+      - Subscribers
+    get:
+      description: Returns a subscriber
+      parameters:
+      - description: Subscriber ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Subscriber'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get subscriber by ID
+      tags:
+      - Subscribers
+    put:
+      consumes:
+      - application/json
+      description: Updates subscriber details
+      parameters:
+      - description: Subscriber ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Subscriber
+        in: body
+        name: subscriber
+        required: true
+        schema:
+          $ref: '#/definitions/model.Subscriber'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Subscriber'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update subscriber
+      tags:
+      - Subscribers
+swagger: "2.0"
